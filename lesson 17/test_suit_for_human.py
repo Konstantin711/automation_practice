@@ -34,12 +34,14 @@ def test_gender_cant_be_set(valid_person_instance):
 def test_status_cant_be_set(valid_person_instance):
     human = valid_person_instance
     human.status = 'forever alive'
+
     assert human._Human__status == 'alive', 'Status was changed'
 
 
 def test_age_limit_cant_be_set(valid_person_instance):
     human = valid_person_instance
     human.age_limit = 120
+
     assert human._Human__age_limit == 100, 'Age limit was changed'
 
 
