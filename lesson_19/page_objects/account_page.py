@@ -1,0 +1,2 @@
+class AccountPage:
+    pass
