@@ -2,13 +2,14 @@ import configparser
 import os
 
 
-def get_config_reader(func):
-    config_path = os.path.abspath('../configurations/config.ini')
+CONFIG_PATH = os.path.abspath('../configurations/config.ini')
 
-    def get_parser():
+
+def get_config_reader(func):
+    def get_parser(url):
         parser = configparser.RawConfigParser()
-        parser.read(config_path)
-        return func(parser)
+        parser.read(CONFIG_PATH)
+        return func(parser, url)
     return get_parser
 
 
@@ -18,5 +19,10 @@ def get_test_data(parser):
 
 
 @get_config_reader
-def get_app_data(parser):
-    return parser.get('app_data', 'url')
+def get_site_urls(parser, url):
+    if url == 'main_url':
+        return parser.get('site_urls', url)
+    elif url == 'register_url':
+        return parser.get('site_urls', url)
+    elif url == 'search_url':
+        return parser.get('site_urls', url)

@@ -1,5 +1,5 @@
 from lesson_19.page_objects.base_page import BasePage
 
 
-class WishlistPage(BasePage):
+class RegisterResultPage(BasePage):
     pass

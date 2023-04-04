@@ -14,6 +14,8 @@ class BasePage:
             return self.__wait.until(EC.element_to_be_clickable(locator))
         elif type_of == 'visible':
             return self.__wait.until(EC.visibility_of_element_located(locator))
+        elif type_of == 'all_elements_located':
+            return self.__wait.until(EC.visibility_of_all_elements_located(locator))
         else:
             return self.__wait.until(EC.presence_of_element_located(locator))
 
@@ -22,3 +24,4 @@ class BasePage:
         if is_clear:
             element.clear()
         element.send_keys(value)
+

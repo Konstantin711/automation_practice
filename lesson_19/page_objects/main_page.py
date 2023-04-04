@@ -4,64 +4,51 @@ from lesson_19.page_objects.account_page import AccountPage
 from lesson_19.page_objects.base_page import BasePage
 from lesson_19.page_objects.register_page import RegisterPage
 from lesson_19.page_objects.cart_page import Cart
+from lesson_19.page_objects.static_elements.header import Header
 from lesson_19.page_objects.wishlist_page import Wishlist
 from lesson_19.page_objects.search_page import SearchPage
-from lesson_19.page_objects.books_page import BooksPage
-from lesson_19.page_objects.computer_page import ComputerPage
+from lesson_19.page_objects.static_elements.header_navigation import HeaderNavigation
 
 
-class MainPage(BasePage):
+class MainPage(BasePage, HeaderNavigation, Header):
     def __init_(self, driver):
-        super().__init__(driver)
+        super(BasePage).__init__(driver)
 
     __register_page = (By.XPATH, "//a[@class='ico-register']")
-    __account_page = (By.XPATH, "//a[@class='account' and text() != 'My account']")
-    __log_in_page = (By.XPATH, "//a[@class='ico-login']")
-    __cart = (By.XPATH, "//li[@id='topcartlink']//a[@class='ico-cart']")
-    __wishlist = (By.XPATH, "//div[@class='header-links-wrapper']//li//a[@class='ico-wishlist']")
+    __all_cards = (By.XPATH, "//div[@class='details']")
     __search_field = (By.XPATH, "//input[@id='small-searchterms']")
-    __search_button = (By.XPATH, "//input[@value='Search']")
-    __books_url = (By.XPATH, "//ul[@class='top-menu']//a[contains(text(), 'Books')]")
-    __computers_url = (By.XPATH, "//ul[@class='top-menu']//a[contains(text(), 'Computers')]")
 
-    def click_register_page(self):
-        page = self._wait_element(self.__register_page)
-        page.click()
-        return RegisterPage
-
-    def get_account_page(self):
-        page = self._wait_element(self.__account_page)
-        page.click()
-        return AccountPage
-
-    def click_log_out(self):
-        page = self._wait_element(self.__log_in_page)
-        page.click()
-        return MainPage(self._driver)
-
-    def get_cart_page(self):
-        page = self._wait_element(self.__cart)
-        page.click()
-        return Cart(self._driver)
-
-    def get_wishlist_page(self):
-        page = self._wait_element(self.__wishlist)
-        page.click()
-        return Wishlist(self._driver)
+    def get_header_link(self, url, action: str):
+        page = self._wait_element(self._header_urls[url])
+        if url not in self._header_urls.keys():
+            raise Exception(f'Value can be any key in:{self._header_urls.keys()}')
+        elif action.lower() == 'text':
+            return page.text
+        elif action.lower() == 'click':
+            page.click()
+            return self._header_pages[url](self._driver)
+        else:
+            raise Exception('Result should be "click" or "text" value')
 
     def send_keys_search(self, keys):
         self._send_keys(self.__search_field, keys)
+        return self
 
-    def click_search_button(self):
-        self._wait_element(self.__search_button).click()
-        return SearchPage(self._driver)
+    def get_navigation_link(self, url, result='text'):
+        element = self._wait_element(self._urls[url])
+        if result.lower() == 'text':
+            return element.text
+        elif result.lower() == 'click':
+            element.click()
+            return self._pages[url](self._driver)
+        else:
+            raise Exception('Result should be "click" or "text" value')
 
-    def get_books_page(self):
-        page = self._wait_element(self.__books_url)
-        page.click()
-        return BooksPage(self._driver)
-
-    def get_computers_page(self):
-        page = self._wait_element(self.__computers_url)
-        page.click()
-        return ComputerPage(self._driver)
+    def get_all_product_cards(self):
+        cards = self._wait_element(self.__all_cards, type_of='all_elements_located')
+        goods_cards = []
+        for card in cards:
+            desc, price = card.text.split('\n')
+            link = card.find_element(By.XPATH, "//div[@class='add-info']//div[@class='buttons']//input[@type='button']")
+            goods_cards.append((desc, price, link))
+        return goods_cards
