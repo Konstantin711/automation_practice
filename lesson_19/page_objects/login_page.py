@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
-from lesson_19.page_objects.main_page import MainPage
-from lesson_19.page_objects.base_page import BasePage
-from lesson_19.page_objects.register_page import RegisterPage
+# from ..page_objects.main_page import MainPage
+from ..page_objects.base_page import BasePage
+from ..page_objects.register_page import RegisterPage
 
 
 class LoginPage(BasePage):
@@ -12,6 +12,7 @@ class LoginPage(BasePage):
     __password_field = (By.XPATH, "//input[@id='Password']")
     __log_in_button = (By.XPATH, "//input[@class='button-1 login-button']")
     __register_button = (By.XPATH, "//div[@class='buttons']//input[@class='button-1 register-button']")
+    # __logged_user_name = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
 
     def set_email(self, email: str):
         email_field = self._wait_element(self.__email_field, type_of='clickable')
@@ -28,6 +29,8 @@ class LoginPage(BasePage):
     def click_login_button(self):
         button = self._wait_element(self.__log_in_button)
         button.click()
+
+        from ..page_objects.main_page import MainPage
         return MainPage(self._driver)
 
     def click_register_button(self):

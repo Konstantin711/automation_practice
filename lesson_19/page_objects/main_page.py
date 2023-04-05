@@ -1,44 +1,72 @@
 from selenium.webdriver.common.by import By
 
-from lesson_19.page_objects.account_page import AccountPage
-from lesson_19.page_objects.base_page import BasePage
-from lesson_19.page_objects.register_page import RegisterPage
-from lesson_19.page_objects.cart_page import Cart
-from lesson_19.page_objects.static_elements.header import Header
-from lesson_19.page_objects.wishlist_page import Wishlist
-from lesson_19.page_objects.search_page import SearchPage
-from lesson_19.page_objects.static_elements.header_navigation import HeaderNavigation
+from .login_page import LoginPage
+from .search_page import SearchPage
+from ..page_objects.static_elements.header_element import Header
+from ..page_objects.base_page import BasePage
+from ..page_objects.static_elements.header_navigation import HeaderNavigation
 
 
 class MainPage(BasePage, HeaderNavigation, Header):
     def __init_(self, driver):
         super(BasePage).__init__(driver)
 
-    __register_page = (By.XPATH, "//a[@class='ico-register']")
     __all_cards = (By.XPATH, "//div[@class='details']")
     __search_field = (By.XPATH, "//input[@id='small-searchterms']")
+    __log_out = (By.XPATH, "//div[@class='header-links']//li//a[@href='/logout']")
+    __log_in = (By.XPATH, "//div[@class='header-links']//li//a[@href='/login']")
+    __logged_user = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
+    __unlogged_user = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
 
     def get_header_link(self, url, action: str):
         page = self._wait_element(self._header_urls[url])
+
         if url not in self._header_urls.keys():
             raise Exception(f'Value can be any key in:{self._header_urls.keys()}')
+
         elif action.lower() == 'text':
             return page.text
+
         elif action.lower() == 'click':
             page.click()
             return self._header_pages[url](self._driver)
+
         else:
             raise Exception('Result should be "click" or "text" value')
 
-    def send_keys_search(self, keys):
+    def make_login_logout(self, url: str):
+        if url == 'log_in':
+            page = self._wait_element(self.__log_in)
+            page.click()
+            return LoginPage(self._driver)
+        else:
+            page = self._wait_element(self.__log_out)
+            page.click()
+            return MainPage(self._driver)
+
+    def get_signed_value(self):
+        name = self._wait_element(self.__logged_user)
+        return name.text
+
+    def get_unsigned_value(self):
+        name = self._wait_element(self._header_urls['register'])
+        return name.text
+
+    def send_keys_search(self, keys: str):
         self._send_keys(self.__search_field, keys)
         return self
 
-    def get_navigation_link(self, url, result='text'):
+    def click_search_button(self):
+        button = self._wait_element(self._header_urls['search_button'])
+        button.click()
+
+        return SearchPage(self._driver)
+
+    def get_navigation_link(self, url: str, action: str):
         element = self._wait_element(self._urls[url])
-        if result.lower() == 'text':
+        if action.lower() == 'text':
             return element.text
-        elif result.lower() == 'click':
+        elif action.lower() == 'click':
             element.click()
             return self._pages[url](self._driver)
         else:

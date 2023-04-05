@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-from lesson_19.page_objects.base_page import BasePage
+from ..page_objects.base_page import BasePage
 
 
 class SearchPage(BasePage):
@@ -13,6 +13,12 @@ class SearchPage(BasePage):
     __sort_by_menu_option = (By.XPATH, "//select[@id='products-orderby']")
     __display_per_page_option = (By.XPATH, "//select[@id='products-pagesize']")
     __view_as_option = (By.XPATH, "//select[@id='products-viewmode']")
+    __page_title = (By.XPATH, "//div[@class='page-title']//h1")
+    __all_cards = (By.XPATH, "//div[@class='details']")
+
+    def get_page_title(self):
+        title = self._wait_element(self.__page_title)
+        return title.text
 
     def fill_search_field(self, email):
         self._send_keys(self.__search_input_field, email)
@@ -39,3 +45,12 @@ class SearchPage(BasePage):
     def fill_view_as_option(self, value):
         self._send_keys(self.__view_as_option, value)
         return self
+
+    def get_all_product_cards(self):
+        cards = self._wait_element(self.__all_cards, type_of='all_elements_located')
+        goods_cards = []
+        for card in cards:
+            desc, price = card.text.split('\n')
+            link = card.find_element(By.XPATH, "//div[@class='add-info']//div[@class='buttons']//input[@type='button']")
+            goods_cards.append((desc, price, link))
+        return goods_cards

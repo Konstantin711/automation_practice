@@ -35,16 +35,8 @@ class HeaderNavigation(ABC):
         'gift_cards': GiftCardPage
     }
 
-    @property
-    def urls(self):
-        return self._urls
-
-    @property
-    def pages(self):
-        return self._pages
-
     @abstractmethod
-    def get_navigation_link(self, url, result: str): ...
+    def get_navigation_link(self, url, action: str): ...
     """
     Method allows to make a click on link or receive it`s text value.
     
