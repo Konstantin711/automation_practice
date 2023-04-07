@@ -1,7 +1,4 @@
-import time
-
 import pytest
-
 from ..utilities.config_parser import get_test_data
 
 
@@ -85,4 +82,3 @@ def test_check_goods_prices(open_main_page):
     pairs = zip(expected_prices, actual_prices)
     for pair in pairs:
         assert float(pair[0]) == float(pair[1]), 'Price is wrong'
-

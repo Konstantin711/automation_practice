@@ -15,8 +15,7 @@ class MainPage(BasePage, HeaderNavigation, Header):
     __search_field = (By.XPATH, "//input[@id='small-searchterms']")
     __log_out = (By.XPATH, "//div[@class='header-links']//li//a[@href='/logout']")
     __log_in = (By.XPATH, "//div[@class='header-links']//li//a[@href='/login']")
-    __logged_user = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
-    __unlogged_user = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
+    __signed_user = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
 
     def get_header_link(self, url, action: str):
         page = self._wait_element(self._header_urls[url])
@@ -45,7 +44,7 @@ class MainPage(BasePage, HeaderNavigation, Header):
             return MainPage(self._driver)
 
     def get_signed_value(self):
-        name = self._wait_element(self.__logged_user)
+        name = self._wait_element(self.__signed_user)
         return name.text
 
     def get_unsigned_value(self):
