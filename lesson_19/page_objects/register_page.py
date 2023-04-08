@@ -1,3 +1,5 @@
+import random
+
 from selenium.webdriver.common.by import By
 
 from lesson_19.page_objects.base_page import BasePage
@@ -16,6 +18,11 @@ class RegisterPage(BasePage):
     __password_field = (By.XPATH, "//input[@id='Password']")
     __confirm_password_field = (By.XPATH, "//input[@id='ConfirmPassword']")
     __register_button = (By.XPATH, "//input[@id='register-button']")
+    __first_name_error = (By.XPATH, "//span[contains(text(), 'First name')]")
+    __last_name_error = (By.XPATH, "//span[contains(text(), 'Last name')]")
+    __email_error = (By.XPATH, "//span[@for='Email']")
+    __password_error = (By.XPATH, "//span[@for='Password']")
+    __repeat_password_error = (By.XPATH, "//span[@for='ConfirmPassword']")
 
     def sign_gender_checkbox(self, gender):
         if gender == 'male':
@@ -50,3 +57,42 @@ class RegisterPage(BasePage):
         elem = self._wait_element(self.__register_button)
         elem.click()
         return RegisterResultPage(self._driver)
+
+    def get_first_name_error(self):
+        field = self._wait_element(self.__first_name_error)
+        return field.text
+
+    def get_last_name_error(self):
+        field = self._wait_element(self.__last_name_error)
+        return field.text
+
+    def get_email_error(self):
+        field = self._wait_element(self.__email_error)
+        return field.text
+
+    def get_password_error(self):
+        field = self._wait_element(self.__password_error)
+        return field.text
+
+    def get_repeat_password_error(self):
+        field = self._wait_element(self.__repeat_password_error)
+        return field.text
+
+    @staticmethod
+    def generate_test_data(data_type: str) -> tuple:
+        if data_type.lower() == 'valid':
+            first_name = f'TestFirstName{random.randint(00, 99)}'
+            last_name = f'TestLastName{random.randint(00, 99)}'
+            email = f'email{random.randint(00000, 99999)}@testmail.ua'
+            password = random.randint(0000000, 9999999)
+        elif data_type.lower() == 'invalid':
+            first_name = f'!@##@#$#@'
+            last_name = f'#@#$##@!@'
+            email = f'email{random.randint(00000, 99999)}testmail.ua'
+            password = random.randint(00000, 99999)
+        else:
+            raise Exception('data_type can be "valid" or "invalid" value')
+
+        return first_name, last_name, email, password
+
+

@@ -40,7 +40,7 @@ def open_search_page(send_request_to_custom_url):
 
 
 @pytest.fixture
-def open_login_page(get_browser):
+def open_login_page(send_request_to_custom_url):
     return LoginPage(send_request_to_custom_url('login_url'))
 
 
