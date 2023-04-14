@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
 
-from ..cart_page import CartPage
 from ..customer_info_page import CustomerInfoPage
 from ..register_page import RegisterPage
 from ..search_page import SearchPage
 from ..wishlist_page import WishlistPage
+from ..cart_page import CartPage
 
 
 class Header:

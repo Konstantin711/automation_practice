@@ -13,7 +13,7 @@ def get_site_urls(func):
     return get_parser
 
 
-def get_test_data(func):
+def get_data_from_config(func):
     def wrapper():
         parser = configparser.RawConfigParser()
         parser.read(CONFIG_PATH)
@@ -21,16 +21,19 @@ def get_test_data(func):
     return wrapper
 
 
-@get_test_data
+@get_data_from_config
 def get_test_data(parser):
     return parser.get('test_data', 'email'), parser.get('test_data', 'password')
 
 
+@get_data_from_config
+def get_errors(parser):
+    return parser.get('login_errors', 'status'),\
+        parser.get('login_errors', 'no_customer_found'),\
+        parser.get('login_errors', 'wrong_password')
+
+
 @get_site_urls
-def get_site_urls(parser, url):
-    # if url == 'main_url':
+def get_custom_urls(parser, url):
     return parser.get('site_urls', url)
-    # elif url == 'register_url':
-    #     return parser.get('site_urls', url)
-    # elif url == 'search_url':
-    #     return parser.get('site_urls', url)
+

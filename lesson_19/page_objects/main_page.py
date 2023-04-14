@@ -1,10 +1,12 @@
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
+from ..page_objects.base_page import BasePage
 from .login_page import LoginPage
 from .search_page import SearchPage
 from ..page_objects.static_elements.header_element import Header
-from ..page_objects.base_page import BasePage
 from ..page_objects.static_elements.header_navigation import HeaderNavigation
+from .computer_page import ComputerPage
 
 
 class MainPage(BasePage, HeaderNavigation, Header):
@@ -16,6 +18,9 @@ class MainPage(BasePage, HeaderNavigation, Header):
     __log_out = (By.XPATH, "//div[@class='header-links']//li//a[@href='/logout']")
     __log_in = (By.XPATH, "//div[@class='header-links']//li//a[@href='/login']")
     __signed_user = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
+
+    __computers_url = (By.XPATH, "//ul[@class='top-menu']//a[contains(text(), 'Computers')]")
+    __desktops_url = (By.XPATH, "//div[@class='header-menu']//ul[@class='top-menu']//ul//li//a[contains(text(),'Desktops')]")
 
     def get_header_link(self, url, action: str):
         page = self._wait_element(self._header_urls[url])
@@ -76,6 +81,15 @@ class MainPage(BasePage, HeaderNavigation, Header):
         goods_cards = []
         for card in cards:
             desc, price = card.text.split('\n')
+            # переробити пошук лінки
             link = card.find_element(By.XPATH, "//div[@class='add-info']//div[@class='buttons']//input[@type='button']")
             goods_cards.append((desc, price, link))
         return goods_cards
+
+    def open_page(self):
+        hover = ActionChains(self._driver)
+        first_element = self._wait_element(self.__computers_url)
+        hover.move_to_element(first_element).perform()
+        self._wait_element(self.__desktops_url).click()
+
+        return ComputerPage(self._driver)
