@@ -8,6 +8,8 @@ class ComputerProductPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+    prices = []
+
     __product_title = (By.XPATH, "//div[@class='product-name']//h1")
     __cart_page = (By.XPATH, "//li[@id='topcartlink']//a[@href='/cart']")
     __processor_radio_buttons = {
@@ -33,23 +35,35 @@ class ComputerProductPage(BasePage):
     __qty = (By.XPATH, "//input[@class='qty-input']")
     __add_to_cart = (By.XPATH, "//div[@class='add-to-cart']//input[@type='button']")
 
-    def set_processor_radio(self, value: str):
-        if value.lower() in self.__processor_radio_buttons.keys():
+    def set_processor_radio(self, value: str, get_text: bool = False):
+        if get_text and value.lower() in self.__processor_radio_buttons.keys():
+            radio = self._wait_element(self.__processor_radio_buttons[value.lower()])
+            text = radio.text.split(' ')
+            return text[1][2:-1]
+        elif value.lower() in self.__processor_radio_buttons.keys():
             radio = self._wait_element(self.__processor_radio_buttons[value.lower()])
             radio.click()
         else:
             raise Exception(f'Value can be: {self.__processor_radio_buttons.keys()}')
         return self
 
-    def set_ram_radio(self, value: str):
-        if value.lower() in self.__ram_radio_buttons.keys():
+    def set_ram_radio(self, value: str, get_text: bool = False):
+        if get_text and value.lower() in self.__ram_radio_buttons.keys():
+            radio = self._wait_element(self.__ram_radio_buttons[value.lower()])
+            text = radio.text.split(' ')
+            return text[1][2:-1]
+        elif value.lower() in self.__ram_radio_buttons.keys():
             radio = self._wait_element(self.__ram_radio_buttons[value.lower()])
             radio.click()
         else:
             raise Exception(f'Value can be: {self.__ram_radio_buttons.keys()}')
         return self
 
-    def set_hdd_radio(self, value: str):
+    def set_hdd_radio(self, value: str, get_text: bool = False):
+        if get_text and value.lower() in self.__hdd_radio_buttons.keys():
+            radio = self._wait_element(self.__hdd_radio_buttons[value.lower()])
+            text = radio.text.split('[')
+            return text[1][1:-1]
         if value.lower() in self.__hdd_radio_buttons.keys():
             radio = self._wait_element(self.__hdd_radio_buttons[value.lower()])
             radio.click()
@@ -57,12 +71,17 @@ class ComputerProductPage(BasePage):
             raise Exception(f'Value can be: {self.__hdd_radio_buttons.keys()}')
         return self
 
-    def set_additional_options(self, values: list):
+    def set_additional_options(self, values: list, get_text: bool = False):
         for value in values:
             if value.lower() not in self.__software.keys():
                 raise Exception(f'Value can be: {self.__software.keys()}')
-            checkbox = self._wait_element(self.__software[value.lower()])
-            checkbox.click()
+            elif get_text:
+                checkbox = self._wait_element(self.__software[value.lower()])
+                self.prices.append(float(checkbox.text.split('[')[1][1:-1]))
+            else:
+                checkbox = self._wait_element(self.__software[value.lower()])
+                checkbox.click()
+
         return self
 
     def get_product_title(self):

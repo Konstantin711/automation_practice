@@ -1,5 +1,3 @@
-from ..page_objects.base_page import BasePage
 
-
-class PasswordRecovery(BasePage):
+class PasswordRecovery:
     pass

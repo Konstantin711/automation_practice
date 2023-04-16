@@ -2,6 +2,8 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from ..utilities.config_parser import get_test_data
+
 
 class BasePage:
     def __init__(self, driver):
@@ -30,3 +32,10 @@ class BasePage:
         hover.move_to_element(first_element).perform()
         second_element = self._wait_element(click_on)
         hover.move_to_element(second_element).click().perform()
+
+    def make_login(self, login_page):
+        from .main_page import MainPage
+
+        email, password = get_test_data()
+        login_page.set_password(password).set_email(email).click_login_button()
+        return MainPage(self._driver)

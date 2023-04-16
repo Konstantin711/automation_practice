@@ -1,5 +1,6 @@
 import time
 
+from ..page_objects.computer_product_page import ComputerProductPage
 from ..utilities.config_parser import get_test_data
 
 
@@ -9,6 +10,7 @@ def test_cart_page(open_computers_page, open_login_page):
     email, password = get_test_data()
     main_page = login_page.set_password(password).set_email(email).click_login_button()
 
+    # передивитись метод open_page
     computer_page = main_page.open_page()
     product_page = computer_page.add_product_to_cart(product_index=2)
 
@@ -23,15 +25,26 @@ def test_cart_page(open_computers_page, open_login_page):
     product_page.set_processor_radio('fast').set_ram_radio('8_gb').set_hdd_radio('400_gb')
     product_page.set_additional_options(['image_viewer', 'office_suite', 'other_office_suite'])
     product_page.set_qty('10')
+
+    processor_cost = float(product_page.set_processor_radio(value='fast', get_text=True))
+    ram_cost = float(product_page.set_ram_radio(value='8_gb', get_text=True))
+    hdd_cost = float(product_page.set_hdd_radio(value='400_gb', get_text=True))
+    product_page.set_additional_options(['image_viewer', 'office_suite', 'other_office_suite'], get_text=True)
+    additional_options = sum(ComputerProductPage.prices)
+
     product_page.add_to_cart()
+    time.sleep(1)
 
     cart_page = product_page.go_to_cart_page()
     cart_price = cart_page.get_price()
     qty = cart_page.get_qty()
     total_price = cart_page.get_total_price()
 
-    assert cart_price == '2205.00' and qty == '10' and total_price == '22050.00', \
-        'Product attributes are different'
+    assert float(cart_price) == float(price) + processor_cost + ram_cost + hdd_cost + additional_options, \
+        'Price is incorrect'
+    assert qty == '10', 'Qty is incorrect'
+    assert float(total_price) == (float(price) + processor_cost + ram_cost + hdd_cost + additional_options) * 10, \
+        'Total price is incorrect'
 
     cart_page.set_country("Ukraine").set_zip('65123').set_agree_checkbox()
     cart_page.click_checkout_button().click_billing_button()

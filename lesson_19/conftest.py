@@ -1,5 +1,6 @@
 import pytest
 
+from .page_objects.customer_info_page import CustomerInfoPage
 from .page_objects.register_page import RegisterPage
 from .page_objects.search_page import SearchPage
 from .page_objects.login_page import LoginPage
@@ -52,3 +53,8 @@ def open_main_page(send_request_to_custom_url):
 @pytest.fixture
 def open_computers_page(send_request_to_custom_url):
     return ComputerPage(send_request_to_custom_url('computer_url'))
+
+
+@pytest.fixture
+def open_user_info_page(send_request_to_custom_url):
+    return CustomerInfoPage(send_request_to_custom_url('customer_info_url'))
