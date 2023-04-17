@@ -50,8 +50,6 @@ class SearchPage(BasePage):
         cards = self._wait_element(self.__all_cards, type_of='all_elements_located')
         goods_cards = []
         for card in cards:
-            # переробити
             desc, price = card.text.split('\n')
-            link = card.find_element(By.XPATH, "//div[@class='add-info']//div[@class='buttons']//input[@type='button']")
-            goods_cards.append((desc, price, link))
+            goods_cards.append((desc, price))
         return goods_cards

@@ -1,17 +1,18 @@
 import time
+import pytest
 
 from ..page_objects.computer_product_page import ComputerProductPage
 from ..utilities.config_parser import get_test_data
 
 
+@pytest.mark.regression
 def test_cart_page(open_computers_page, open_login_page):
     login_page = open_login_page
 
     email, password = get_test_data()
     main_page = login_page.set_password(password).set_email(email).click_login_button()
 
-    # передивитись метод open_page
-    computer_page = main_page.open_page()
+    computer_page = main_page.open_computer_page()
     product_page = computer_page.add_product_to_cart(product_index=2)
 
     description = computer_page.description
@@ -33,6 +34,7 @@ def test_cart_page(open_computers_page, open_login_page):
     additional_options = sum(ComputerProductPage.prices)
 
     product_page.add_to_cart()
+    # Needed timeout to allow ajax send product to cart
     time.sleep(1)
 
     cart_page = product_page.go_to_cart_page()
@@ -63,6 +65,3 @@ def test_cart_page(open_computers_page, open_login_page):
     main_page = order_status_page.click_continue_button()
 
     assert main_page.get_signed_value() == email, 'Main page is not returned after order creation'
-
-
-

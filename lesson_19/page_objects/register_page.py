@@ -2,8 +2,8 @@ import random
 
 from selenium.webdriver.common.by import By
 
-from lesson_19.page_objects.base_page import BasePage
-from lesson_19.page_objects.register_result_page import RegisterResultPage
+from ..page_objects.base_page import BasePage
+from ..page_objects.register_result_page import RegisterResultPage
 
 
 class RegisterPage(BasePage):
@@ -94,5 +94,3 @@ class RegisterPage(BasePage):
             raise Exception('data_type can be "valid" or "invalid" value')
 
         return first_name, last_name, email, password
-
-

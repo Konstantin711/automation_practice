@@ -81,7 +81,6 @@ class ComputerProductPage(BasePage):
             else:
                 checkbox = self._wait_element(self.__software[value.lower()])
                 checkbox.click()
-
         return self
 
     def get_product_title(self):
@@ -104,6 +103,4 @@ class ComputerProductPage(BasePage):
     def go_to_cart_page(self):
         page = self._wait_element(self.__cart_page, type_of='clickable')
         page.click()
-
         return CartPage(self._driver)
-

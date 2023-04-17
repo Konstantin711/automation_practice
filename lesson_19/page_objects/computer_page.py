@@ -21,6 +21,7 @@ class ComputerPage(BasePage):
         return title.text
 
     def add_product_to_cart(self, product_index: int):
+        """Add product to cart at Computer Page"""
         cards = self._wait_element(self.__cards, type_of='all_elements_located')
 
         for index, card in enumerate(cards):

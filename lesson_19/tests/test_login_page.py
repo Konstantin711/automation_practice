@@ -2,6 +2,7 @@ import pytest
 from ..utilities.config_parser import get_test_data, get_errors
 
 
+@pytest.mark.smoke
 def test_make_login(open_login_page):
     login_page = open_login_page
 
@@ -14,6 +15,7 @@ def test_make_login(open_login_page):
     assert signed_user == email, 'Sign up is successful'
 
 
+@pytest.mark.smoke
 def test_login_with_empty_email(open_login_page):
     login_page = open_login_page
 
@@ -30,6 +32,7 @@ def test_login_with_empty_email(open_login_page):
     assert cause == cause_expected, 'Cause is incorrect'
 
 
+@pytest.mark.smoke
 def test_login_with_empty_password(open_login_page):
     login_page = open_login_page
 

@@ -105,5 +105,3 @@ class CartPage(BasePage):
     def click_final_button(self):
         self._wait_element(self.__final_confirm, type_of='clickable').click()
         return OrderStatus(self._driver)
-
-

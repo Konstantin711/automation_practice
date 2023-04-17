@@ -1,5 +1,7 @@
+import pytest
 
 
+@pytest.mark.regression
 def test_change_customer_info(open_user_info_page, open_login_page):
     user_info_page = open_user_info_page
     main_page = user_info_page.make_login(open_login_page)
@@ -19,6 +21,7 @@ def test_change_customer_info(open_user_info_page, open_login_page):
     assert new_name == 'New Name' and new_last_name == 'Last Name', 'Values didn`t change'
 
 
+@pytest.mark.regression
 def test_set_empty_name(open_user_info_page, open_login_page):
     user_info_page = open_user_info_page
     main_page = user_info_page.make_login(open_login_page)
@@ -30,6 +33,7 @@ def test_set_empty_name(open_user_info_page, open_login_page):
     assert first_name_error == 'First name is required.', 'Error text is wrong'
 
 
+@pytest.mark.smoke
 def test_set_empty_last_name(open_user_info_page, open_login_page):
     user_info_page = open_user_info_page
     main_page = user_info_page.make_login(open_login_page)
@@ -41,6 +45,7 @@ def test_set_empty_last_name(open_user_info_page, open_login_page):
     assert last_name_error == 'Last name is required.', 'Error text is wrong'
 
 
+@pytest.mark.smoke
 def test_set_empty_email(open_user_info_page, open_login_page):
     user_info_page = open_user_info_page
     main_page = user_info_page.make_login(open_login_page)
@@ -50,5 +55,3 @@ def test_set_empty_email(open_user_info_page, open_login_page):
     email_name_error = user_info_page.get_email_error()
 
     assert email_name_error == 'Email is required.', 'Error text is wrong'
-
-

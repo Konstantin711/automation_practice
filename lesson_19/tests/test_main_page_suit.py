@@ -2,6 +2,7 @@ import pytest
 from ..utilities.config_parser import get_test_data
 
 
+@pytest.mark.regression
 def test_check_login(open_main_page):
     main_page_driver = open_main_page
     email, password = get_test_data()
@@ -14,6 +15,7 @@ def test_check_login(open_main_page):
     return main_page
 
 
+@pytest.mark.regression
 def test_check_log_out(open_main_page):
     login_to_account = test_check_login(open_main_page)
 
@@ -23,6 +25,7 @@ def test_check_log_out(open_main_page):
     assert name == 'Register', 'User successfully logged out'
 
 
+@pytest.mark.regression
 @pytest.mark.parametrize('urls,text',
                          [('books_url', 'BOOKS'), ('computers_url', 'COMPUTERS'), ('electronics_url', 'ELECTRONICS'),
                           ('apparel_shoes_url', 'APPAREL & SHOES'), ('digital_url', 'DIGITAL DOWNLOADS'),
@@ -34,6 +37,7 @@ def test_check_navigation_links_text(open_main_page, urls, text):
     assert link == text, 'Text in link is wrong'
 
 
+@pytest.mark.regression
 @pytest.mark.parametrize('urls,text',
                          [('books_url', 'Books'), ('computers_url', 'Computers'), ('electronics_url', 'Electronics'),
                           ('apparel_shoes_url', 'Apparel & Shoes'), ('digital_url', 'Digital downloads'),
@@ -46,6 +50,7 @@ def test_check_navigation_links_transitions(open_main_page, urls, text):
     assert page_title == text, 'Transition is incorrect'
 
 
+@pytest.mark.regression
 def test_search_transition(open_main_page):
     main_page_driver = open_main_page
 
@@ -56,6 +61,7 @@ def test_search_transition(open_main_page):
     assert title == 'Search', 'Transition is incorrect'
 
 
+@pytest.mark.regression
 def test_search_goods(open_main_page):
     main_page_driver = open_main_page
 
@@ -64,10 +70,11 @@ def test_search_goods(open_main_page):
 
     goods = search_page.get_all_product_cards()
     for good in goods:
-        title, _, _ = good
+        title, _ = good
         assert title.lower().__contains__('computer'), 'Goods didn`t find at the page'
 
 
+@pytest.mark.regression
 def test_check_goods_prices(open_main_page):
     main_page_driver = open_main_page
 
@@ -76,7 +83,7 @@ def test_check_goods_prices(open_main_page):
     goods = main_page_driver.get_all_product_cards()
     actual_prices = []
     for good in goods:
-        _, price, _ = good
+        _, price = good
         actual_prices.append(price)
 
     pairs = zip(expected_prices, actual_prices)

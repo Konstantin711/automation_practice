@@ -20,21 +20,19 @@ class MainPage(BasePage, HeaderNavigation, Header):
     __signed_user = (By.XPATH, "//div[@class='header-links']//ul//li//a[@href='/customer/info']")
 
     __computers_url = (By.XPATH, "//ul[@class='top-menu']//a[contains(text(), 'Computers')]")
-    __desktops_url = (By.XPATH, "//div[@class='header-menu']//ul[@class='top-menu']//ul//li//a[contains(text(),'Desktops')]")
+    __desktops_url = (By.XPATH, "//div[@class='header-menu']//ul[@class='top-menu']"
+                                "//ul//li//a[contains(text(),'Desktops')]")
 
     def get_header_link(self, url, action: str):
         page = self._wait_element(self._header_urls[url])
 
         if url not in self._header_urls.keys():
             raise Exception(f'Value can be any key in:{self._header_urls.keys()}')
-
         elif action.lower() == 'text':
             return page.text
-
         elif action.lower() == 'click':
             page.click()
             return self._header_pages[url](self._driver)
-
         else:
             raise Exception('Result should be "click" or "text" value')
 
@@ -81,12 +79,10 @@ class MainPage(BasePage, HeaderNavigation, Header):
         goods_cards = []
         for card in cards:
             desc, price = card.text.split('\n')
-            # переробити пошук лінки
-            link = card.find_element(By.XPATH, "//div[@class='add-info']//div[@class='buttons']//input[@type='button']")
-            goods_cards.append((desc, price, link))
+            goods_cards.append((desc, price))
         return goods_cards
 
-    def open_page(self):
+    def open_computer_page(self):
         hover = ActionChains(self._driver)
         first_element = self._wait_element(self.__computers_url)
         hover.move_to_element(first_element).perform()

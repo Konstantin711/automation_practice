@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.smoke
 def test_valid_login(open_register_page):
     register_page = open_register_page
 
@@ -17,6 +18,7 @@ def test_valid_login(open_register_page):
     assert label == 'Your registration completed', 'Registration is failed'
 
 
+@pytest.mark.smoke
 def test_wrong_email_set(open_register_page):
     register_page = open_register_page
 
@@ -36,6 +38,7 @@ def test_wrong_email_set(open_register_page):
     assert register_result == 'Wrong email', 'Message about invalid email is wrong'
 
 
+@pytest.mark.smoke
 def test_wrong_password_set(open_register_page):
     register_page = open_register_page
 
@@ -54,6 +57,7 @@ def test_wrong_password_set(open_register_page):
         'Password error field is wrong'
 
 
+@pytest.mark.smoke
 def test_set_different_passwords(open_register_page):
     register_page = open_register_page
 
@@ -72,6 +76,7 @@ def test_set_different_passwords(open_register_page):
         'Repeat name error field is wrong'
 
 
+@pytest.mark.smoke
 def test_let_name_empty(open_register_page):
     register_page = open_register_page
 
@@ -87,6 +92,7 @@ def test_let_name_empty(open_register_page):
     assert error == 'First name is required.', 'First name error field is wrong'
 
 
+@pytest.mark.regression
 def test_let_last_name_empty(open_register_page):
     register_page = open_register_page
 
@@ -102,6 +108,7 @@ def test_let_last_name_empty(open_register_page):
     assert error == 'Last name is required.', 'Last name error field is wrong'
 
 
+@pytest.mark.smoke
 def test_let_email_empty(open_register_page):
     register_page = open_register_page
 
@@ -117,6 +124,7 @@ def test_let_email_empty(open_register_page):
     assert error == 'Email is required.', 'Email error field is wrong'
 
 
+@pytest.mark.regression
 def test_let_password_empty(open_register_page):
     register_page = open_register_page
 
@@ -133,6 +141,7 @@ def test_let_password_empty(open_register_page):
     assert error == 'Password is required.', 'Password error field is wrong'
 
 
+@pytest.mark.regression
 def test_let_repeat_password_empty(open_register_page):
     register_page = open_register_page
 
