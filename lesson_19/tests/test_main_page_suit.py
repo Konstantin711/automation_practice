@@ -1,11 +1,12 @@
 import pytest
-from ..utilities.config_parser import get_test_data
 
 
 @pytest.mark.regression
-def test_check_login(open_main_page):
+def test_check_login(open_main_page, config_data):
     main_page_driver = open_main_page
-    email, password = get_test_data()
+
+    email = config_data.test_data['email']
+    password = config_data.test_data['password']
 
     login_page = main_page_driver.make_login()
     main_page = login_page.set_email(email).set_password(password).click_login_button()
