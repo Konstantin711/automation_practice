@@ -2,9 +2,9 @@ import pytest
 
 
 @pytest.mark.regression
-def test_change_customer_info(open_user_info_page, open_login_page):
+def test_change_customer_info(open_user_info_page, open_login_page, config_data):
     user_info_page = open_user_info_page
-    main_page = user_info_page.make_login(open_login_page)
+    main_page = user_info_page.make_login(open_login_page, config_data)
 
     main_page.get_header_link('customer_info', 'click')
 

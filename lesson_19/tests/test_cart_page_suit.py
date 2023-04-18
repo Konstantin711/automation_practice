@@ -2,14 +2,15 @@ import time
 import pytest
 
 from ..page_objects.computer_product_page import ComputerProductPage
-from ..utilities.config_parser import get_test_data
 
 
 @pytest.mark.regression
-def test_cart_page(open_computers_page, open_login_page):
+def test_cart_page(open_computers_page, open_login_page, config_data):
     login_page = open_login_page
 
-    email, password = get_test_data()
+    email = config_data.test_data['email']
+    password = config_data.test_data['password']
+
     main_page = login_page.set_password(password).set_email(email).click_login_button()
 
     computer_page = main_page.open_computer_page()
