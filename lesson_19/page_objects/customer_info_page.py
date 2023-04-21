@@ -39,16 +39,14 @@ class CustomerInfoPage(BasePage):
         return self
 
     def get_first_name_value(self):
-        name = self._wait_element(self.__first_name)
-        return name.get_attribute('value')
+        return self._get_element_attribute(self.__first_name, 'value')
 
     def set_last_name(self, last_name):
         self._send_keys(self.__last_name, last_name)
         return self
 
     def get_last_name_value(self):
-        last_name = self._wait_element(self.__last_name)
-        return last_name.get_attribute('value')
+        return self._get_element_attribute(self.__last_name, 'value')
 
     def set_email(self, email):
         self._send_keys(self.__email, email)

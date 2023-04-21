@@ -20,6 +20,9 @@ class BasePage:
         else:
             return self.__wait.until(EC.presence_of_element_located(locator))
 
+    def _get_element_attribute(self, locator: tuple, attribute: str):
+        return self._wait_element(locator).get_attribute(attribute)
+
     def _send_keys(self, locator: tuple, value: str, is_clear: bool = True):
         element = self._wait_element(locator, type_of='clickable')
         if is_clear:

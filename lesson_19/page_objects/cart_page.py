@@ -49,8 +49,7 @@ class CartPage(BasePage):
         return price.text
 
     def get_qty(self):
-        qty = self._wait_element(self.__qty).get_attribute('value')
-        return qty
+        return self._get_element_attribute(self.__qty, 'value')
 
     def get_total_price(self):
         total_price = self._wait_element(self.__total_price)
