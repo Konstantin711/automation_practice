@@ -38,7 +38,7 @@ class HeaderNavigation(ABC):
     }
 
     @abstractmethod
-    def get_navigation_link(self, url, action: str): ...
+    def get_navigation_link(self, url): ...
     """
     Method allows to make a click on link or receive it`s text value.
     

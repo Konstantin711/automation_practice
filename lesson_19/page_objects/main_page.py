@@ -23,18 +23,16 @@ class MainPage(BasePage, HeaderNavigation, Header):
     __desktops_url = (By.XPATH, "//div[@class='header-menu']//ul[@class='top-menu']"
                                 "//ul//li//a[contains(text(),'Desktops')]")
 
-    def get_header_link(self, url, action: str):
-        page = self._wait_element(self._header_urls[url])
-
+    def get_header_link_text(self, url):
         if url not in self._header_urls.keys():
             raise Exception(f'Value can be any key in:{self._header_urls.keys()}')
-        elif action.lower() == 'text':
-            return page.text
-        elif action.lower() == 'click':
-            self._click_to_element(self._header_urls[url])
-            return self._header_pages[url](self._driver)
-        else:
-            raise Exception('Result should be "click" or "text" value')
+        return self._wait_element(self._header_urls[url]).text
+
+    def click_header_link(self, url):
+        if url not in self._header_urls.keys():
+            raise Exception(f'Value can be any key in:{self._header_urls.keys()}')
+        self._click_to_element(self._header_urls[url])
+        return self._header_pages[url](self._driver)
 
     def make_login(self):
         self._click_to_element(self.__log_in)
@@ -60,15 +58,16 @@ class MainPage(BasePage, HeaderNavigation, Header):
         self._click_to_element(self._header_urls['search_button'])
         return SearchPage(self._driver)
 
-    def get_navigation_link(self, url: str, action: str):
-        element = self._wait_element(self._urls[url])
-        if action.lower() == 'text':
-            return element.text
-        elif action.lower() == 'click':
-            self._click_to_element(self._urls[url])
-            return self._pages[url](self._driver)
-        else:
-            raise Exception('Result should be "click" or "text" value')
+    def get_navigation_link_text(self, url):
+        if url not in self._urls.keys():
+            raise Exception(f'Value can be any key in:{self._urls.keys()}')
+        return self._wait_element(self._urls[url]).text
+
+    def get_navigation_link(self, url):
+        if url not in self._urls.keys():
+            raise Exception(f'Value can be any key in:{self._urls.keys()}')
+        self._click_to_element(self._urls[url])
+        return self._pages[url](self._driver)
 
     def get_all_product_cards(self):
         cards = self._wait_element(self.__all_cards, type_of='all_elements_located')

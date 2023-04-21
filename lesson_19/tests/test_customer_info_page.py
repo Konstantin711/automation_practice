@@ -5,7 +5,7 @@ import pytest
 def test_change_customer_info(open_user_info_page, open_login_page, make_login):
     main_page = make_login
 
-    main_page.get_header_link('customer_info', 'click')
+    main_page.click_header_link('customer_info')
 
     customer_info_page = open_user_info_page
 
@@ -24,7 +24,7 @@ def test_change_customer_info(open_user_info_page, open_login_page, make_login):
 def test_set_empty_name(open_user_info_page, open_login_page, make_login):
     user_info_page = open_user_info_page
     main_page = make_login
-    main_page.get_header_link('customer_info', 'click')
+    main_page.click_header_link('customer_info')
 
     user_info_page.set_first_name('').set_last_name('Last Name').set_email('test@gmail.com').click_save_button()
     first_name_error = user_info_page.get_first_name_error()
@@ -36,7 +36,7 @@ def test_set_empty_name(open_user_info_page, open_login_page, make_login):
 def test_set_empty_last_name(open_user_info_page, open_login_page, make_login):
     user_info_page = open_user_info_page
     main_page = make_login
-    main_page.get_header_link('customer_info', 'click')
+    main_page.click_header_link('customer_info')
 
     user_info_page.set_first_name('First Name').set_last_name('').set_email('test@gmail.com').click_save_button()
     last_name_error = user_info_page.get_last_name_error()
@@ -48,7 +48,7 @@ def test_set_empty_last_name(open_user_info_page, open_login_page, make_login):
 def test_set_empty_email(open_user_info_page, open_login_page, make_login):
     user_info_page = open_user_info_page
     main_page = make_login
-    main_page.get_header_link('customer_info', 'click')
+    main_page.click_header_link('customer_info')
 
     user_info_page.set_first_name('First Name').set_last_name('Last Name').set_email('').click_save_button()
     email_name_error = user_info_page.get_email_error()

@@ -33,7 +33,7 @@ def test_check_log_out(open_main_page):
 def test_check_navigation_links_text(open_main_page, urls, text):
     main_page_driver = open_main_page
 
-    link = main_page_driver.get_navigation_link(url=urls, action='text')
+    link = main_page_driver.get_navigation_link_text(url=urls)
     assert link == text, 'Text in link is wrong'
 
 
@@ -45,7 +45,7 @@ def test_check_navigation_links_text(open_main_page, urls, text):
 def test_check_navigation_links_transitions(open_main_page, urls, text):
     main_page_driver = open_main_page
 
-    page = main_page_driver.get_navigation_link(url=urls, action='click')
+    page = main_page_driver.get_navigation_link(url=urls)
     page_title = page.get_page_title(title_selector=page._page_title)
     assert page_title == text, 'Transition is incorrect'
 
