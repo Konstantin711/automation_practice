@@ -71,10 +71,8 @@ class MainPage(BasePage, HeaderNavigation, Header):
 
     def get_all_product_cards(self):
         cards = self._wait_element(self.__all_cards, type_of='all_elements_located')
-        goods_cards = []
-        for card in cards:
-            desc, price = card.text.split('\n')
-            goods_cards.append((desc, price))
+        goods_cards = [(card.text.split('\n')) for card in cards]
+
         return goods_cards
 
     def open_computer_page(self):
