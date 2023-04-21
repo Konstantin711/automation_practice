@@ -27,8 +27,10 @@ class RegisterPage(BasePage):
     def sign_gender_checkbox(self, gender):
         if gender == 'male':
             self._click_to_element(self.__gender_male_checkbox)
-        else:
+        elif gender == 'female':
             self._click_to_element(self.__gender_female_checkbox)
+        else:
+            raise Exception('Please use "male" or "female" values')
         return self
 
     def fill_first_name_field(self, first_name):
