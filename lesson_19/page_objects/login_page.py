@@ -24,9 +24,7 @@ class LoginPage(BasePage):
         return self
 
     def set_password(self, password: str):
-        password_field = self._wait_element(self.__password_field, type_of='visible')
-        password_field.clear()
-        password_field.send_keys(password)
+        self._send_keys(self.__password_field, password)
         return self
 
     def click_login_button(self):
