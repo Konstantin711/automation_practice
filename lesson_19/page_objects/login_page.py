@@ -32,23 +32,21 @@ class LoginPage(BasePage):
         return self
 
     def click_login_button(self):
-        button = self._wait_element(self.__log_in_button)
-        button.click()
+        self._click_to_element(self.__log_in_button)
 
         from ..page_objects.main_page import MainPage
         return MainPage(self._driver)
 
     def click_register_button(self):
-        button = self._wait_element(self.__register_button)
-        button.click()
+        self._click_to_element(self.__register_button)
         return RegisterPage(self._driver)
 
     def click_remember_checkbox(self):
-        self._wait_element(self.__remember_checkbox).click()
+        self._click_to_element(self.__remember_checkbox)
         return self
 
     def click_forgot_password(self):
-        self._wait_element(self.__forgot_password).click()
+        self._click_to_element(self.__forgot_password)
         return PasswordRecovery(self._driver)
 
     def get_login_error_status(self):

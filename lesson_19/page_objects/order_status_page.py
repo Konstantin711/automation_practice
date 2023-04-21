@@ -17,5 +17,5 @@ class OrderStatus(BasePage):
 
     def click_continue_button(self):
         from .main_page import MainPage
-        self._wait_element(self.__continue_button).click()
+        self._click_to_element(self.__continue_button)
         return MainPage(self._driver)

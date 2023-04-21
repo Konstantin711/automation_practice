@@ -23,6 +23,9 @@ class BasePage:
     def _get_element_attribute(self, locator: tuple, attribute: str):
         return self._wait_element(locator).get_attribute(attribute)
 
+    def _click_to_element(self, locator: tuple, type_of: str = 'Any'):
+        return self._wait_element(locator, type_of).click()
+
     def _send_keys(self, locator: tuple, value: str, is_clear: bool = True):
         element = self._wait_element(locator, type_of='clickable')
         if is_clear:

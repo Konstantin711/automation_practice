@@ -41,8 +41,7 @@ class ComputerProductPage(BasePage):
             text = radio.text.split(' ')
             return text[1][2:-1]
         elif value.lower() in self.__processor_radio_buttons.keys():
-            radio = self._wait_element(self.__processor_radio_buttons[value.lower()])
-            radio.click()
+            self._click_to_element(self.__processor_radio_buttons[value.lower()])
         else:
             raise Exception(f'Value can be: {self.__processor_radio_buttons.keys()}')
         return self
@@ -53,8 +52,7 @@ class ComputerProductPage(BasePage):
             text = radio.text.split(' ')
             return text[1][2:-1]
         elif value.lower() in self.__ram_radio_buttons.keys():
-            radio = self._wait_element(self.__ram_radio_buttons[value.lower()])
-            radio.click()
+            self._click_to_element(self.__ram_radio_buttons[value.lower()])
         else:
             raise Exception(f'Value can be: {self.__ram_radio_buttons.keys()}')
         return self
@@ -65,8 +63,7 @@ class ComputerProductPage(BasePage):
             text = radio.text.split('[')
             return text[1][1:-1]
         if value.lower() in self.__hdd_radio_buttons.keys():
-            radio = self._wait_element(self.__hdd_radio_buttons[value.lower()])
-            radio.click()
+            self._click_to_element(self.__hdd_radio_buttons[value.lower()])
         else:
             raise Exception(f'Value can be: {self.__hdd_radio_buttons.keys()}')
         return self
@@ -79,8 +76,7 @@ class ComputerProductPage(BasePage):
                 checkbox = self._wait_element(self.__software[value.lower()])
                 self.prices.append(float(checkbox.text.split('[')[1][1:-1]))
             else:
-                checkbox = self._wait_element(self.__software[value.lower()])
-                checkbox.click()
+                self._click_to_element(self.__software[value.lower()])
         return self
 
     def get_product_title(self):
@@ -96,11 +92,9 @@ class ComputerProductPage(BasePage):
         return self
 
     def add_to_cart(self):
-        button = self._wait_element(self.__add_to_cart, type_of='clickable')
-        button.click()
+        self._click_to_element(self.__add_to_cart, type_of='clickable')
         return self
 
     def go_to_cart_page(self):
-        page = self._wait_element(self.__cart_page, type_of='clickable')
-        page.click()
+        self._click_to_element(self.__cart_page, type_of='clickable')
         return CartPage(self._driver)

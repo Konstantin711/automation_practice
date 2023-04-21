@@ -27,9 +27,9 @@ class CustomerInfoPage(BasePage):
 
     def set_gender(self, gender: str):
         if gender == 'male':
-            self._wait_element(self.__gender['male']).click()
+            self._click_to_element(self.__gender['male'])
         elif gender == 'female':
-            self._wait_element(self.__gender['female']).click()
+            self._wait_element(self.__gender['female'])
         else:
             raise Exception('Gender can be : male or female')
         return self
@@ -53,7 +53,7 @@ class CustomerInfoPage(BasePage):
         return self
 
     def click_save_button(self):
-        self._wait_element(self.__save_button).click()
+        self._click_to_element(self.__save_button)
         return self
 
     def get_first_name_error(self):

@@ -64,39 +64,39 @@ class CartPage(BasePage):
         return self
 
     def set_agree_checkbox(self):
-        self._wait_element(self.__agree_checkbox).click()
+        self._click_to_element(self.__agree_checkbox)
         return self
 
     def click_checkout_button(self):
-        self._wait_element(self.__checkout_button).click()
+        self._click_to_element(self.__checkout_button)
         return self
 
     def click_billing_button(self):
-        self._wait_element(self.__continue_billing_button).click()
+        self._click_to_element(self.__continue_billing_button)
         return self
 
     def set_in_store_pickup_checkbox(self):
-        self._wait_element(self.__in_store_pickup_checkbox).click()
+        self._click_to_element(self.__in_store_pickup_checkbox)
         return self
 
     def click_shipping_address_button(self):
-        self._wait_element(self.__continue_shipping_button, type_of='clickable').click()
+        self._click_to_element(self.__continue_shipping_button, type_of='clickable')
         return self
 
     def set_shipping_method(self, method):
-        self._wait_element(self.__shipping_methods[method]).click()
-        self._wait_element(self.__shipping_methods['continue_button']).click()
+        self._click_to_element(self.__shipping_methods[method])
+        self._click_to_element(self.__shipping_methods['continue_button'])
         return self
 
     def set_payment_method(self, method):
-        self._wait_element(self.__payment_methods[method]).click()
-        self._wait_element(self.__payment_methods['continue_button']).click()
+        self._click_to_element(self.__payment_methods[method])
+        self._click_to_element(self.__payment_methods['continue_button'])
         return self
 
     def click_payment_information_button(self):
-        self._wait_element(self.__payment_information_button, type_of='clickable').click()
+        self._click_to_element(self.__payment_information_button, type_of='clickable')
         return self
 
     def click_final_button(self):
-        self._wait_element(self.__final_confirm, type_of='clickable').click()
+        self._click_to_element(self.__final_confirm, type_of='clickable')
         return OrderStatus(self._driver)

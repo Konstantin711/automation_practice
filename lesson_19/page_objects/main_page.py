@@ -31,19 +31,17 @@ class MainPage(BasePage, HeaderNavigation, Header):
         elif action.lower() == 'text':
             return page.text
         elif action.lower() == 'click':
-            page.click()
+            self._click_to_element(self._header_urls[url])
             return self._header_pages[url](self._driver)
         else:
             raise Exception('Result should be "click" or "text" value')
 
     def make_login_logout(self, url: str):
         if url == 'log_in':
-            page = self._wait_element(self.__log_in)
-            page.click()
+            self._click_to_element(self.__log_in)
             return LoginPage(self._driver)
         else:
-            page = self._wait_element(self.__log_out)
-            page.click()
+            self._click_to_element(self.__log_out)
             return MainPage(self._driver)
 
     def get_signed_value(self):
@@ -59,9 +57,7 @@ class MainPage(BasePage, HeaderNavigation, Header):
         return self
 
     def click_search_button(self):
-        button = self._wait_element(self._header_urls['search_button'])
-        button.click()
-
+        self._click_to_element(self._header_urls['search_button'])
         return SearchPage(self._driver)
 
     def get_navigation_link(self, url: str, action: str):
@@ -69,7 +65,7 @@ class MainPage(BasePage, HeaderNavigation, Header):
         if action.lower() == 'text':
             return element.text
         elif action.lower() == 'click':
-            element.click()
+            self._click_to_element(self._urls[url])
             return self._pages[url](self._driver)
         else:
             raise Exception('Result should be "click" or "text" value')

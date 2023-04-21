@@ -21,13 +21,11 @@ class SearchPage(BasePage):
         return self
 
     def set_advanced_checkbox(self):
-        checkbox = self._wait_element(self.__advanced_checkbox)
-        checkbox.click()
+        self._click_to_element(self.__advanced_checkbox)
         return self
 
     def click_search_button(self):
-        button = self._wait_element(self.__search_button)
-        button.click()
+        self._click_to_element(self.__search_button)
         return self
 
     def fill_sort_option(self, value):

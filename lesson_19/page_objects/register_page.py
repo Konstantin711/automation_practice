@@ -26,11 +26,9 @@ class RegisterPage(BasePage):
 
     def sign_gender_checkbox(self, gender):
         if gender == 'male':
-            element = self._wait_element(self.__gender_male_checkbox)
-            element.click()
+            self._click_to_element(self.__gender_male_checkbox)
         else:
-            element = self._wait_element(self.__gender_female_checkbox)
-            element.click()
+            self._click_to_element(self.__gender_female_checkbox)
         return self
 
     def fill_first_name_field(self, first_name):
@@ -54,8 +52,7 @@ class RegisterPage(BasePage):
         return self
 
     def click_register_button(self):
-        elem = self._wait_element(self.__register_button)
-        elem.click()
+        self._click_to_element(self.__register_button)
         return RegisterResultPage(self._driver)
 
     def get_first_name_error(self):
