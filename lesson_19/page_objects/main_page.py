@@ -76,9 +76,5 @@ class MainPage(BasePage, HeaderNavigation, Header):
         return goods_cards
 
     def open_computer_page(self):
-        hover = ActionChains(self._driver)
-        first_element = self._wait_element(self.__computers_url)
-        hover.move_to_element(first_element).perform()
-        self._wait_element(self.__desktops_url).click()
-
+        self.hover_to_element(self._driver, hover_to=self.__computers_url, click_on=self.__desktops_url)
         return ComputerPage(self._driver)
