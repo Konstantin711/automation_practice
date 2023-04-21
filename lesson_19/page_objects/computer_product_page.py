@@ -35,8 +35,8 @@ class ComputerProductPage(BasePage):
     __qty = (By.XPATH, "//input[@class='qty-input']")
     __add_to_cart = (By.XPATH, "//div[@class='add-to-cart']//input[@type='button']")
 
-    def set_processor_radio(self, value: str, get_text: bool = False):
-        if get_text and value.lower() in self.__processor_radio_buttons.keys():
+    def set_processor_radio(self, value: str, is_get_text: bool = False):
+        if is_get_text and value.lower() in self.__processor_radio_buttons.keys():
             radio = self._wait_element(self.__processor_radio_buttons[value.lower()])
             text = radio.text.split(' ')
             return text[1][2:-1]
@@ -46,8 +46,8 @@ class ComputerProductPage(BasePage):
             raise Exception(f'Value can be: {self.__processor_radio_buttons.keys()}')
         return self
 
-    def set_ram_radio(self, value: str, get_text: bool = False):
-        if get_text and value.lower() in self.__ram_radio_buttons.keys():
+    def set_ram_radio(self, value: str, is_get_text: bool = False):
+        if is_get_text and value.lower() in self.__ram_radio_buttons.keys():
             radio = self._wait_element(self.__ram_radio_buttons[value.lower()])
             text = radio.text.split(' ')
             return text[1][2:-1]
@@ -57,8 +57,8 @@ class ComputerProductPage(BasePage):
             raise Exception(f'Value can be: {self.__ram_radio_buttons.keys()}')
         return self
 
-    def set_hdd_radio(self, value: str, get_text: bool = False):
-        if get_text and value.lower() in self.__hdd_radio_buttons.keys():
+    def set_hdd_radio(self, value: str, is_get_text: bool = False):
+        if is_get_text and value.lower() in self.__hdd_radio_buttons.keys():
             radio = self._wait_element(self.__hdd_radio_buttons[value.lower()])
             text = radio.text.split('[')
             return text[1][1:-1]
@@ -68,11 +68,11 @@ class ComputerProductPage(BasePage):
             raise Exception(f'Value can be: {self.__hdd_radio_buttons.keys()}')
         return self
 
-    def set_additional_options(self, values: list, get_text: bool = False):
+    def set_additional_options(self, values: list, is_get_text: bool = False):
         for value in values:
             if value.lower() not in self.__software.keys():
                 raise Exception(f'Value can be: {self.__software.keys()}')
-            elif get_text:
+            elif is_get_text:
                 checkbox = self._wait_element(self.__software[value.lower()])
                 self.prices.append(float(checkbox.text.split('[')[1][1:-1]))
             else:

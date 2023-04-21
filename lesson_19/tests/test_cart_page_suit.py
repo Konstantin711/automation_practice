@@ -27,10 +27,10 @@ def test_cart_page(open_computers_page, open_login_page):
     product_page.set_additional_options(['image_viewer', 'office_suite', 'other_office_suite'])
     product_page.set_qty('10')
 
-    processor_cost = float(product_page.set_processor_radio(value='fast', get_text=True))
-    ram_cost = float(product_page.set_ram_radio(value='8_gb', get_text=True))
-    hdd_cost = float(product_page.set_hdd_radio(value='400_gb', get_text=True))
-    product_page.set_additional_options(['image_viewer', 'office_suite', 'other_office_suite'], get_text=True)
+    processor_cost = float(product_page.set_processor_radio(value='fast', is_get_text=True))
+    ram_cost = float(product_page.set_ram_radio(value='8_gb', is_get_text=True))
+    hdd_cost = float(product_page.set_hdd_radio(value='400_gb', is_get_text=True))
+    product_page.set_additional_options(['image_viewer', 'office_suite', 'other_office_suite'], is_get_text=True)
     additional_options = sum(ComputerProductPage.prices)
 
     product_page.add_to_cart()
