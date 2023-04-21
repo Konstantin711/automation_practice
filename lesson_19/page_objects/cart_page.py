@@ -72,7 +72,7 @@ class CartPage(BasePage):
         return self
 
     def click_billing_button(self):
-        self._click_to_element(self.__continue_billing_button)
+        self._click_to_element(self.__continue_billing_button, type_of='clickable')
         return self
 
     def set_in_store_pickup_checkbox(self):
