@@ -2,9 +2,8 @@ import pytest
 
 
 @pytest.mark.regression
-def test_change_customer_info(open_user_info_page, open_login_page):
-    user_info_page = open_user_info_page
-    main_page = user_info_page.make_login(open_login_page)
+def test_change_customer_info(open_user_info_page, open_login_page, make_login):
+    main_page = make_login
 
     main_page.get_header_link('customer_info', 'click')
 
@@ -22,9 +21,9 @@ def test_change_customer_info(open_user_info_page, open_login_page):
 
 
 @pytest.mark.regression
-def test_set_empty_name(open_user_info_page, open_login_page):
+def test_set_empty_name(open_user_info_page, open_login_page, make_login):
     user_info_page = open_user_info_page
-    main_page = user_info_page.make_login(open_login_page)
+    main_page = make_login
     main_page.get_header_link('customer_info', 'click')
 
     user_info_page.set_first_name('').set_last_name('Last Name').set_email('test@gmail.com').click_save_button()
@@ -34,9 +33,9 @@ def test_set_empty_name(open_user_info_page, open_login_page):
 
 
 @pytest.mark.smoke
-def test_set_empty_last_name(open_user_info_page, open_login_page):
+def test_set_empty_last_name(open_user_info_page, open_login_page, make_login):
     user_info_page = open_user_info_page
-    main_page = user_info_page.make_login(open_login_page)
+    main_page = make_login
     main_page.get_header_link('customer_info', 'click')
 
     user_info_page.set_first_name('First Name').set_last_name('').set_email('test@gmail.com').click_save_button()
@@ -46,9 +45,9 @@ def test_set_empty_last_name(open_user_info_page, open_login_page):
 
 
 @pytest.mark.smoke
-def test_set_empty_email(open_user_info_page, open_login_page):
+def test_set_empty_email(open_user_info_page, open_login_page, make_login):
     user_info_page = open_user_info_page
-    main_page = user_info_page.make_login(open_login_page)
+    main_page = make_login
     main_page.get_header_link('customer_info', 'click')
 
     user_info_page.set_first_name('First Name').set_last_name('Last Name').set_email('').click_save_button()

@@ -7,7 +7,7 @@ from .page_objects.login_page import LoginPage
 from .page_objects.main_page import MainPage
 from .page_objects.computer_page import ComputerPage
 
-from .utilities.config_parser import get_custom_urls
+from .utilities.config_parser import get_custom_urls, get_test_data
 from .utilities.browsers_factory import browsers_factory
 
 
@@ -58,3 +58,11 @@ def open_computers_page(send_request_to_custom_url):
 @pytest.fixture
 def open_user_info_page(send_request_to_custom_url):
     return CustomerInfoPage(send_request_to_custom_url('customer_info_url'))
+
+
+@pytest.fixture
+def make_login(get_browser):
+    login_page = LoginPage(get_browser)
+    email, password = get_test_data()
+    login_page.set_password(password).set_email(email).click_login_button()
+    return MainPage(get_browser)

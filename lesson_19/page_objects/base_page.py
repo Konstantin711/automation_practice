@@ -33,12 +33,5 @@ class BasePage:
         second_element = self._wait_element(click_on)
         hover.move_to_element(second_element).click().perform()
 
-    def make_login(self, login_page):
-        from .main_page import MainPage
-
-        email, password = get_test_data()
-        login_page.set_password(password).set_email(email).click_login_button()
-        return MainPage(self._driver)
-
     def get_page_title(self, title_selector):
         return self._wait_element(title_selector).text
