@@ -1,4 +1,5 @@
 import pytest
+import random
 
 from .page_objects.customer_info_page import CustomerInfoPage
 from .page_objects.register_page import RegisterPage
@@ -66,3 +67,23 @@ def make_login(get_browser):
     email, password = get_test_data()
     login_page.set_password(password).set_email(email).click_login_button()
     return MainPage(get_browser)
+
+
+@pytest.fixture
+def generate_test_data():
+    def wrapper(data_type: str):
+        if data_type.lower() == 'valid':
+            first_name = f'TestFirstName{random.randint(00, 99)}'
+            last_name = f'TestLastName{random.randint(00, 99)}'
+            email = f'email{random.randint(00000, 99999)}@testmail.ua'
+            password = random.randint(0000000, 9999999)
+        elif data_type.lower() == 'invalid':
+            first_name = '!@##@#$#@'
+            last_name = '#@#$##@!@'
+            email = f'email{random.randint(00000, 99999)}testmail.ua'
+            password = random.randint(00000, 99999)
+        else:
+            raise Exception('data_type can be "valid" or "invalid" value')
+
+        return first_name, last_name, email, password
+    return wrapper

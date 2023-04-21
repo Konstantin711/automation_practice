@@ -76,20 +76,3 @@ class RegisterPage(BasePage):
     def get_repeat_password_error(self):
         field = self._wait_element(self.__repeat_password_error)
         return field.text
-
-    @staticmethod
-    def generate_test_data(data_type: str) -> tuple:
-        if data_type.lower() == 'valid':
-            first_name = f'TestFirstName{random.randint(00, 99)}'
-            last_name = f'TestLastName{random.randint(00, 99)}'
-            email = f'email{random.randint(00000, 99999)}@testmail.ua'
-            password = random.randint(0000000, 9999999)
-        elif data_type.lower() == 'invalid':
-            first_name = f'!@##@#$#@'
-            last_name = f'#@#$##@!@'
-            email = f'email{random.randint(00000, 99999)}testmail.ua'
-            password = random.randint(00000, 99999)
-        else:
-            raise Exception('data_type can be "valid" or "invalid" value')
-
-        return first_name, last_name, email, password

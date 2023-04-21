@@ -2,10 +2,10 @@ import pytest
 
 
 @pytest.mark.smoke
-def test_valid_login(open_register_page):
+def test_valid_login(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    first_name, last_name, email, password = register_page.generate_test_data('valid')
+    first_name, last_name, email, password = generate_test_data('valid')
     register_page.sign_gender_checkbox('male')
     register_page.fill_first_name_field(first_name)
     register_page.fill_last_name_field(last_name)
@@ -19,11 +19,11 @@ def test_valid_login(open_register_page):
 
 
 @pytest.mark.smoke
-def test_wrong_email_set(open_register_page):
+def test_wrong_email_set(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    _, _, email, _ = register_page.generate_test_data('invalid')
-    first_name, last_name, _, password = register_page.generate_test_data('valid')
+    _, _, email, _ = generate_test_data('invalid')
+    first_name, last_name, _, password = generate_test_data('valid')
 
     register_page.sign_gender_checkbox('female')
     register_page.fill_first_name_field(first_name)
@@ -39,11 +39,11 @@ def test_wrong_email_set(open_register_page):
 
 
 @pytest.mark.smoke
-def test_wrong_password_set(open_register_page):
+def test_wrong_password_set(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    first_name, last_name, email, password = register_page.generate_test_data('valid')
-    _, _, _, wrong_password = register_page.generate_test_data('invalid')
+    first_name, last_name, email, password = generate_test_data('valid')
+    _, _, _, wrong_password = generate_test_data('invalid')
 
     register_page.fill_first_name_field(first_name)
     register_page.fill_last_name_field(last_name)
@@ -58,11 +58,11 @@ def test_wrong_password_set(open_register_page):
 
 
 @pytest.mark.smoke
-def test_set_different_passwords(open_register_page):
+def test_set_different_passwords(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    first_name, last_name, email, password = register_page.generate_test_data('valid')
-    _, _, _, wrong_password = register_page.generate_test_data('invalid')
+    first_name, last_name, email, password = generate_test_data('valid')
+    _, _, _, wrong_password = generate_test_data('invalid')
 
     register_page.fill_first_name_field(first_name)
     register_page.fill_last_name_field(last_name)
@@ -77,10 +77,10 @@ def test_set_different_passwords(open_register_page):
 
 
 @pytest.mark.smoke
-def test_let_name_empty(open_register_page):
+def test_let_name_empty(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    _, last_name, email, password = register_page.generate_test_data('valid')
+    _, last_name, email, password = generate_test_data('valid')
 
     register_page.fill_last_name_field(last_name)
     register_page.fill_email_field(email)
@@ -93,10 +93,10 @@ def test_let_name_empty(open_register_page):
 
 
 @pytest.mark.regression
-def test_let_last_name_empty(open_register_page):
+def test_let_last_name_empty(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    first_name, _, email, password = register_page.generate_test_data('valid')
+    first_name, _, email, password = generate_test_data('valid')
 
     register_page.fill_first_name_field(first_name)
     register_page.fill_email_field(email)
@@ -109,10 +109,10 @@ def test_let_last_name_empty(open_register_page):
 
 
 @pytest.mark.smoke
-def test_let_email_empty(open_register_page):
+def test_let_email_empty(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    first_name, last_name, _, password = register_page.generate_test_data('valid')
+    first_name, last_name, _, password = generate_test_data('valid')
 
     register_page.fill_first_name_field(first_name)
     register_page.fill_last_name_field(last_name)
@@ -125,10 +125,10 @@ def test_let_email_empty(open_register_page):
 
 
 @pytest.mark.regression
-def test_let_password_empty(open_register_page):
+def test_let_password_empty(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    first_name, last_name, email, password = register_page.generate_test_data('valid')
+    first_name, last_name, email, password = generate_test_data('valid')
 
     register_page.fill_first_name_field(first_name)
     register_page.fill_last_name_field(last_name)
@@ -142,10 +142,10 @@ def test_let_password_empty(open_register_page):
 
 
 @pytest.mark.regression
-def test_let_repeat_password_empty(open_register_page):
+def test_let_repeat_password_empty(open_register_page, generate_test_data):
     register_page = open_register_page
 
-    first_name, last_name, email, password = register_page.generate_test_data('valid')
+    first_name, last_name, email, password = generate_test_data('valid')
 
     register_page.fill_first_name_field(first_name)
     register_page.fill_last_name_field(last_name)
