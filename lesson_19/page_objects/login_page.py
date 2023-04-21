@@ -20,9 +20,7 @@ class LoginPage(BasePage):
     __login_error_cause = (By.XPATH, "//div[@class='validation-summary-errors']//ul//li")
 
     def set_email(self, email: str):
-        email_field = self._wait_element(self.__email_field, type_of='clickable')
-        email_field.clear()
-        email_field.send_keys(email)
+        self._send_keys(self.__email_field, email)
         return self
 
     def set_password(self, password: str):
