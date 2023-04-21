@@ -36,13 +36,13 @@ class MainPage(BasePage, HeaderNavigation, Header):
         else:
             raise Exception('Result should be "click" or "text" value')
 
-    def make_login_logout(self, url: str):
-        if url == 'log_in':
-            self._click_to_element(self.__log_in)
-            return LoginPage(self._driver)
-        else:
-            self._click_to_element(self.__log_out)
-            return MainPage(self._driver)
+    def make_login(self):
+        self._click_to_element(self.__log_in)
+        return LoginPage(self._driver)
+
+    def make_logout(self):
+        self._click_to_element(self.__log_out)
+        return MainPage(self._driver)
 
     def get_signed_value(self):
         name = self._wait_element(self.__signed_user)

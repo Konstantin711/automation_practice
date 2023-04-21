@@ -7,7 +7,7 @@ def test_check_login(open_main_page):
     main_page_driver = open_main_page
     email, password = get_test_data()
 
-    login_page = main_page_driver.make_login_logout(url='log_in')
+    login_page = main_page_driver.make_login()
     main_page = login_page.set_email(email).set_password(password).click_login_button()
     signed_user = main_page.get_signed_value()
 
@@ -19,7 +19,7 @@ def test_check_login(open_main_page):
 def test_check_log_out(open_main_page):
     login_to_account = test_check_login(open_main_page)
 
-    login_to_account.make_login_logout('log_out')
+    login_to_account.make_logout()
     name = login_to_account.get_unsigned_value()
 
     assert name == 'Register', 'User successfully logged out'
