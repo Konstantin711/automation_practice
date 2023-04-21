@@ -8,7 +8,7 @@ class CartPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    __page_title = (By.XPATH, "//div[@class='page-title']//h1")
+    _page_title = (By.XPATH, "//div[@class='page-title']//h1")
     __product_attributes = {
         'title': (By.XPATH, "//td[@class='product']//a[@class='product-name']"),
         'all_data': (By.XPATH, "//td[@class='product']//div[@class='attributes']")
@@ -43,10 +43,6 @@ class CartPage(BasePage):
 
     __payment_information_button = (By.XPATH, "//div[@id='payment-info-buttons-container']//input[@value='Continue']")
     __final_confirm = (By.XPATH, "//div[@id='confirm-order-buttons-container']//input[@value='Confirm']")
-
-    def get_page_title(self):
-        title = self._wait_element(self.__page_title)
-        return title.text
 
     def get_price(self):
         price = self._wait_element(self.__price)

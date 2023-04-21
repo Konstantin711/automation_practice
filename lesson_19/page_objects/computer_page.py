@@ -8,17 +8,13 @@ class ComputerPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    __page_title = (By.XPATH, "//div[@class='page-title']//h1")
+    _page_title = (By.XPATH, "//div[@class='page-title']//h1")
     __all_cards = (By.XPATH, "//div[@class='add-info']//div[@class='buttons']//input[@type='button']")
     __cards = (By.XPATH, "//div[@class='details']")
     __login_page_url = (By.XPATH, "//a[@href='/login']")
 
     description = ''
     price = ''
-
-    def get_page_title(self):
-        title = self._wait_element(self.__page_title)
-        return title.text
 
     def add_product_to_cart(self, product_index: int):
         """Add product to cart at Computer Page"""

@@ -46,7 +46,7 @@ def test_check_navigation_links_transitions(open_main_page, urls, text):
     main_page_driver = open_main_page
 
     page = main_page_driver.get_navigation_link(url=urls, action='click')
-    page_title = page.get_page_title()
+    page_title = page.get_page_title(title_selector=main_page_driver._page_title)
     assert page_title == text, 'Transition is incorrect'
 
 
@@ -57,7 +57,7 @@ def test_search_transition(open_main_page):
     main_page_driver.send_keys_search(keys='Computer')
     search_page = main_page_driver.click_search_button()
 
-    title = search_page.get_page_title()
+    title = search_page.get_page_title(title_selector=search_page._page_title)
     assert title == 'Search', 'Transition is incorrect'
 
 

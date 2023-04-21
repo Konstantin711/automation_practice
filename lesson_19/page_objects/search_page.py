@@ -13,12 +13,8 @@ class SearchPage(BasePage):
     __sort_by_menu_option = (By.XPATH, "//select[@id='products-orderby']")
     __display_per_page_option = (By.XPATH, "//select[@id='products-pagesize']")
     __view_as_option = (By.XPATH, "//select[@id='products-viewmode']")
-    __page_title = (By.XPATH, "//div[@class='page-title']//h1")
+    _page_title = (By.XPATH, "//div[@class='page-title']//h1")
     __all_cards = (By.XPATH, "//div[@class='details']")
-
-    def get_page_title(self):
-        title = self._wait_element(self.__page_title)
-        return title.text
 
     def fill_search_field(self, email):
         self._send_keys(self.__search_input_field, email)

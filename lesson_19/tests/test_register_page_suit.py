@@ -14,7 +14,7 @@ def test_valid_login(open_register_page):
     register_page.fill_confirm_password_field(password)
     register_result = register_page.click_register_button()
 
-    label = register_result.get_page_title()
+    label = register_result.get_page_title(title_selector=register_result._register_result)
     assert label == 'Your registration completed', 'Registration is failed'
 
 

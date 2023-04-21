@@ -56,7 +56,7 @@ def test_cart_page(open_computers_page, open_login_page):
     cart_page.click_payment_information_button()
     order_status_page = cart_page.click_final_button()
 
-    title = order_status_page.get_page_title()
+    title = order_status_page.get_page_title(title_selector=order_status_page._page_title)
     status = order_status_page.get_order_status()
 
     assert title == 'Thank you' and status == 'Your order has been successfully processed!', \
