@@ -2,8 +2,6 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from ..utilities.config_parser import get_test_data
-
 
 class BasePage:
     def __init__(self, driver):

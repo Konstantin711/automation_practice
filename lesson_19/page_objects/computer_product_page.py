@@ -12,6 +12,7 @@ class ComputerProductPage(BasePage):
 
     __product_title = (By.XPATH, "//div[@class='product-name']//h1")
     __cart_page = (By.XPATH, "//li[@id='topcartlink']//a[@href='/cart']")
+    __top_cart_page = (By.XPATH, "//p//a[@href='/cart']")
     __processor_radio_buttons = {
         'slow': (By.XPATH, "//label[contains(text(), 'Slow')]"),
         'medium': (By.XPATH, "//label[contains(text(), 'Medium')]"),
@@ -96,5 +97,5 @@ class ComputerProductPage(BasePage):
         return self
 
     def go_to_cart_page(self):
-        self._click_to_element(self.__cart_page, type_of='clickable')
+        self._click_to_element(self.__top_cart_page, type_of='visible')
         return CartPage(self._driver)

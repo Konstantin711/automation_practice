@@ -1,8 +1,8 @@
-import time
 import pytest
 
 from ..page_objects.computer_product_page import ComputerProductPage
 from ..utilities.config_parser import get_test_data
+from ..utilities.waiters import wait_until
 
 
 @pytest.mark.regression
@@ -34,15 +34,16 @@ def test_cart_page(open_computers_page, open_login_page):
     additional_options = sum(ComputerProductPage.prices)
 
     product_page.add_to_cart()
-    # Needed timeout to allow ajax send product to cart
-    time.sleep(1)
 
     cart_page = product_page.go_to_cart_page()
-    cart_price = cart_page.get_price()
+
+    price_with_all_options = float(price) + processor_cost + ram_cost + hdd_cost + additional_options
+    cart_price = wait_until(cart_page.get_price)
+
     qty = cart_page.get_qty()
     total_price = cart_page.get_total_price()
 
-    assert float(cart_price) == float(price) + processor_cost + ram_cost + hdd_cost + additional_options, \
+    assert float(cart_price) == price_with_all_options, \
         'Price is incorrect'
     assert qty == '10', 'Qty is incorrect'
     assert float(total_price) == (float(price) + processor_cost + ram_cost + hdd_cost + additional_options) * 10, \
