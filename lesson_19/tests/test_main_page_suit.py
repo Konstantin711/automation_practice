@@ -17,8 +17,8 @@ def test_check_login(open_main_page, config_data):
 
 
 @pytest.mark.regression
-def test_check_log_out(open_main_page):
-    login_to_account = test_check_login(open_main_page)
+def test_check_log_out(make_login):
+    login_to_account = make_login
 
     login_to_account.make_logout()
     name = login_to_account.get_unsigned_value()
