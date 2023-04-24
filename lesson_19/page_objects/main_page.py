@@ -34,7 +34,7 @@ class MainPage(BasePage, HeaderNavigation, Header):
         self._click_to_element(self._header_urls[url])
         return self._header_pages[url](self._driver)
 
-    def make_login(self):
+    def click_login(self):
         self._click_to_element(self.__log_in)
         return LoginPage(self._driver)
 

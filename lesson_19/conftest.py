@@ -1,3 +1,6 @@
+import json
+import os
+
 import pytest
 import random
 
@@ -7,8 +10,8 @@ from .page_objects.search_page import SearchPage
 from .page_objects.login_page import LoginPage
 from .page_objects.main_page import MainPage
 from .page_objects.computer_page import ComputerPage
+from .utilities.config_json_parser import JsonParser
 
-from .utilities.config_parser import get_custom_urls, get_test_data
 from .utilities.browsers_factory import browsers_factory
 
 
@@ -21,14 +24,24 @@ def get_browser():
 
 
 @pytest.fixture
-def send_request_to_custom_url(get_browser):
+def send_request_to_custom_url(get_browser, config_data):
     driver = get_browser
 
     def wrapper(url):
-        urls = get_custom_urls(url)
+        urls = config_data.site_urls[url]
         driver.get(urls)
         return driver
     return wrapper
+
+
+@pytest.fixture(scope='session', autouse=True)
+def config_data():
+    __CONFIG_PATH = os.path.abspath('../configurations/config.json')
+
+    with open(__CONFIG_PATH, 'r') as file:
+        json_obj = json.loads(file.read())
+
+    return JsonParser(**json_obj)
 
 
 @pytest.fixture
@@ -62,9 +75,12 @@ def open_user_info_page(send_request_to_custom_url):
 
 
 @pytest.fixture
-def make_login(get_browser):
-    login_page = LoginPage(get_browser)
-    email, password = get_test_data()
+def make_login(get_browser, config_data, send_request_to_custom_url):
+    login_page = LoginPage(send_request_to_custom_url('login_url'))
+
+    email = config_data.test_data['email']
+    password = config_data.test_data['password']
+
     login_page.set_password(password).set_email(email).click_login_button()
     return MainPage(get_browser)
 
