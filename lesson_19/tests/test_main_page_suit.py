@@ -8,7 +8,7 @@ def test_check_login(open_main_page, config_data):
     email = config_data.test_data['email']
     password = config_data.test_data['password']
 
-    login_page = main_page_driver.make_login()
+    login_page = main_page_driver.click_login()
     main_page = login_page.set_email(email).set_password(password).click_login_button()
     signed_user = main_page.get_signed_value()
 
