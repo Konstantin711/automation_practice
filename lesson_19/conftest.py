@@ -11,7 +11,6 @@ from .page_objects.login_page import LoginPage
 from .page_objects.main_page import MainPage
 from .page_objects.computer_page import ComputerPage
 from .utilities.config_json_parser import JsonParser
-
 from .utilities.browsers_factory import browsers_factory
 
 
