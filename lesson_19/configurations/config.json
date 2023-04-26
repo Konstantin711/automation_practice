@@ -15,5 +15,8 @@
     "status": "Login was unsuccessful. Please correct the errors and try again.",
     "no_customer_found": "No customer account found",
     "wrong_password": "The credentials provided are incorrect"
+  },
+  "api_link": {
+    "url": "https://reqres.in/api/"
   }
 }
