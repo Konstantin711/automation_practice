@@ -1,7 +1,7 @@
 import pytest
 
-from lesson_19.page_objects.computer_product_page import ComputerProductPage
-from lesson_19.utilities.waiters import wait_until
+from ...page_objects.computer_product_page import ComputerProductPage
+from ...utilities.waiters import wait_until
 
 
 @pytest.mark.regression
