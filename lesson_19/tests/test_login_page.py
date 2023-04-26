@@ -1,12 +1,12 @@
 import pytest
-from ..utilities.config_parser import get_test_data, get_errors
 
 
 @pytest.mark.smoke
-def test_make_login(open_login_page):
+def test_make_login(open_login_page, config_data):
     login_page = open_login_page
 
-    email, password = get_test_data()
+    email = config_data.test_data['email']
+    password = config_data.test_data['password']
 
     login_page.set_email(email).set_password(password)
     main_page = login_page.click_remember_checkbox().click_login_button()
@@ -16,11 +16,13 @@ def test_make_login(open_login_page):
 
 
 @pytest.mark.smoke
-def test_login_with_empty_email(open_login_page):
+def test_login_with_empty_email(open_login_page, config_data):
     login_page = open_login_page
 
-    _, password = get_test_data()
-    status_expected, cause_expected, _ = get_errors()
+    password = config_data.test_data['password']
+
+    status_expected = config_data.login_errors['status']
+    cause_expected = config_data.login_errors['no_customer_found']
 
     login_page.set_password(password)
     login_page.click_remember_checkbox().click_login_button()
@@ -33,11 +35,12 @@ def test_login_with_empty_email(open_login_page):
 
 
 @pytest.mark.smoke
-def test_login_with_empty_password(open_login_page):
+def test_login_with_empty_password(open_login_page, config_data):
     login_page = open_login_page
 
-    email, _ = get_test_data()
-    status_expected, _, cause_expected = get_errors()
+    email = config_data.test_data['email']
+    status_expected = config_data.login_errors['status']
+    cause_expected = config_data.login_errors['wrong_password']
 
     login_page.set_email(email)
     login_page.click_remember_checkbox().click_login_button()
