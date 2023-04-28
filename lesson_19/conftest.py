@@ -1,6 +1,8 @@
 import json
 import os
+from contextlib import suppress
 
+import allure
 import pytest
 import random
 
@@ -16,10 +18,15 @@ from .utilities.browsers_factory import browsers_factory
 
 
 @pytest.fixture
-def get_browser():
+def get_browser(request):
     driver = browsers_factory('chrome')
     driver.maximize_window()
     yield driver
+    if request.node.rep_call.failed:
+        with suppress(Exception):
+            allure.attach(driver.get_screenshot_as_png(),
+                          name=request.function.__name__,
+                          attachment_type=allure.attachment_type.PNG)
     driver.quit()
 
 
@@ -33,6 +40,13 @@ def send_request_to_custom_url(get_browser, config_data):
         return driver
     return wrapper
 
+
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+    return rep
 
 @pytest.fixture(scope='session', autouse=True)
 def config_data():
