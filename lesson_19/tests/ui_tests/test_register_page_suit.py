@@ -1,6 +1,8 @@
+import allure
 import pytest
 
 
+@allure.title('Valid login')
 @pytest.mark.smoke
 def test_valid_login(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -18,6 +20,7 @@ def test_valid_login(open_register_page, generate_test_data):
     assert label == 'Your registration completed', 'Registration is failed'
 
 
+@allure.title('Check wrong email set')
 @pytest.mark.smoke
 def test_wrong_email_set(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -38,6 +41,7 @@ def test_wrong_email_set(open_register_page, generate_test_data):
     assert register_result == 'Wrong email', 'Message about invalid email is wrong'
 
 
+@allure.title('Check wrong password field')
 @pytest.mark.smoke
 def test_wrong_password_set(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -57,6 +61,7 @@ def test_wrong_password_set(open_register_page, generate_test_data):
         'Password error field is wrong'
 
 
+@allure.title('Check different passwords')
 @pytest.mark.smoke
 def test_set_different_passwords(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -76,6 +81,7 @@ def test_set_different_passwords(open_register_page, generate_test_data):
         'Repeat name error field is wrong'
 
 
+@allure.title('Check empty name field')
 @pytest.mark.smoke
 def test_let_name_empty(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -92,6 +98,7 @@ def test_let_name_empty(open_register_page, generate_test_data):
     assert error == 'First name is required.', 'First name error field is wrong'
 
 
+@allure.title('Check last name empty')
 @pytest.mark.regression
 def test_let_last_name_empty(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -108,6 +115,7 @@ def test_let_last_name_empty(open_register_page, generate_test_data):
     assert error == 'Last name is required.', 'Last name error field is wrong'
 
 
+@allure.title('Check empty email field')
 @pytest.mark.smoke
 def test_let_email_empty(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -124,6 +132,7 @@ def test_let_email_empty(open_register_page, generate_test_data):
     assert error == 'Email is required.', 'Email error field is wrong'
 
 
+@allure.title('Check empty password field')
 @pytest.mark.regression
 def test_let_password_empty(open_register_page, generate_test_data):
     register_page = open_register_page
@@ -141,6 +150,7 @@ def test_let_password_empty(open_register_page, generate_test_data):
     assert error == 'Password is required.', 'Password error field is wrong'
 
 
+@allure.title('Check repeat password field')
 @pytest.mark.regression
 def test_let_repeat_password_empty(open_register_page, generate_test_data):
     register_page = open_register_page
