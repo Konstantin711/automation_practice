@@ -1,10 +1,12 @@
 import json
 from http import HTTPStatus
 
+import allure
 
 from ...api_module.api_collections.register_collection import RegisterAPI
 
 
+@allure.title('Check successful register')
 def test_successful_register(config_data):
     register_api = RegisterAPI(config_data)
     credentials = dict({'email': 'eve.holt@reqres.in', 'password': 'pistol'})
@@ -13,6 +15,7 @@ def test_successful_register(config_data):
     assert response.status_code == HTTPStatus.OK, 'Status code is wrong'
 
 
+@allure.title('Check unsuccessful register')
 def test_unsuccessful_register(config_data):
     register_api = RegisterAPI(config_data)
 
