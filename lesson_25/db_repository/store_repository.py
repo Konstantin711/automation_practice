@@ -10,12 +10,12 @@ class StoreRepository:
         self.__session = session
 
     def add_to_products(self, name, price):
-        insert_data = insert(P).values(name=name, price=price)
+        insert_data = insert(p).values(name=name, price=price)
         self.__session.execute(insert_data)
         self.__session.commit()
 
     def add_to_orders(self, qty, product_id):
-        insert_data = insert(O).values(quantity=qty, product_id=product_id)
+        insert_data = insert(o).values(quantity=qty, product_id=product_id)
         self.__session.execute(insert_data)
         self.__session.commit()
 
