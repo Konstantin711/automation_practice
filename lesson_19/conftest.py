@@ -50,7 +50,7 @@ def pytest_runtest_makereport(item, call):
 
 @pytest.fixture(scope='session', autouse=True)
 def config_data():
-    __CONFIG_PATH = os.path.abspath('..lesson_19/configurations/config.json')
+    __CONFIG_PATH = os.path.abspath('lesson_19/configurations/config.json')
 
     with open(__CONFIG_PATH, 'r') as file:
         json_obj = json.loads(file.read())
