@@ -19,7 +19,7 @@ def browsers_factory(browser: str):
         options = Options()
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
-        return Chrome(service=Service(ChromeDriverManager().install()))
+        return Chrome(service=Service(ChromeDriverManager().install()), options=options)
     elif browser.lower() == 'firefox':
         service = FirefoxService(executable_path=GeckoDriverManager().install())
         driver = Firefox(service=service)
