@@ -1,4 +1,5 @@
 from selenium.webdriver import Chrome
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -15,12 +16,13 @@ from selenium import webdriver
 
 def browsers_factory(browser: str):
     if browser.lower() == 'chrome':
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
         return Chrome(service=Service(ChromeDriverManager().install()))
     elif browser.lower() == 'firefox':
         service = FirefoxService(executable_path=GeckoDriverManager().install())
-        options = webdriver.FirefoxOptions()
-        options.add_argument('--headless')
-        driver = Firefox(options=options, service=service)
+        driver = Firefox(service=service)
         return driver
     elif browser.lower() == 'edge':
         return ChromiumEdge(service=EdgeService(EdgeChromiumDriverManager().install()))
